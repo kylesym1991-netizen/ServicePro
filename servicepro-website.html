@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServicePro - Run Your Service Business From Your Phone</title>
+    <meta name="description" content="ServicePro is the operations platform for local service businesses. Schedule jobs, manage customers, send invoices, and document work—all from your phone. Start free.">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B2C;
+            --dark: #0A0E27;
+            --darker: #050816;
+            --light: #F8F9FA;
+            --gray: #8B92A4;
+            --accent: #FFD93D;
+            --green: #6BCF7F;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--light);
+        }
+
+        /* Utility */
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+            font-size: 1.5rem;
+            transform: rotate(-5deg);
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 107, 44, 0.03) 2px, rgba(255, 107, 44, 0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 107, 44, 0.03) 2px, rgba(255, 107, 44, 0.03) 4px);
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 107, 44, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 107, 44, 0.3);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        h1 .highlight {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 44, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .phone-mockup {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0f1429 100%);
+            border-radius: 30px;
+            padding: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 107, 44, 0.3);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .phone-screen {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            min-height: 600px;
+        }
+
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .screen-title {
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .job-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .job-card:nth-child(2) { animation-delay: 0.2s; }
+        .job-card:nth-child(3) { animation-delay: 0.4s; }
+        .job-card:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .job-status {
+            background: var(--green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .job-details {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 0;
+            background: white;
+            position: relative;
+        }
+
+        .features::before {
+            content: 'FEATURES';
+            position: absolute;
+            top: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8rem;
+            font-weight: 800;
+            color: #f8f9fa;
+            letter-spacing: 0.2em;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-label {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 107, 44, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 107, 44, 0.1);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 8rem 0;
+            background: white;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            background: var(--light);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            transform: scale(1.05);
+            border-color: var(--primary);
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 107, 44, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-card.featured .plan-name {
+            color: var(--primary);
+        }
+
+        .plan-price {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card.featured .plan-price {
+            color: white;
+        }
+
+        .plan-period {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card.featured .plan-period {
+            color: var(--gray);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .plan-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-card.featured .plan-features li {
+            border-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:not(.featured) .plan-btn {
+            background: var(--dark);
+            color: white;
+            border: 2px solid var(--dark);
+        }
+
+        .pricing-card:not(.featured) .plan-btn:hover {
+            background: transparent;
+            color: var(--dark);
+        }
+
+        .pricing-card.featured .plan-btn {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .pricing-card.featured .plan-btn:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.05) 10px, rgba(255, 255, 255, 0.05) 20px);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-section .btn-primary {
+            background: var(--dark);
+            border-color: var(--dark);
+            color: white;
+        }
+
+        .cta-section .btn-primary:hover {
+            background: white;
+            color: var(--dark);
+            border-color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: var(--gray);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">S</div>
+                <span class="logo-text">ServicePro</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#" class="cta-btn">Start Free</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">Built for Field Professionals</div>
+                <h1>Run Your Service Business <span class="highlight">From Your Phone</span></h1>
+                <p class="hero-subtitle">ServicePro gives you everything you need to run your service business professionally: job scheduling, customer management, SMS communication, photo documentation, and instant invoicing.</p>
+                <div class="hero-ctas">
+                    <a href="#" class="btn-primary">Start Free Trial</a>
+                    <a href="#" class="btn-secondary">Watch Demo</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <strong>$0</strong>
+                        to start
+                    </div>
+                    <div class="stat">
+                        <strong>2 min</strong>
+                        setup
+                    </div>
+                    <div class="stat">
+                        <strong>100%</strong>
+                        mobile-ready
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="screen-header">
+                            <span class="screen-title">Today's Jobs</span>
+                            <span class="mono">Feb 14</span>
+                        </div>
+                        <div class="job-card">
+                            <div class="job-header">
+                                <div class="job-title">John Smith</div>
+                                <div class="job-status">In Progress</div>
+                            </div>
+                            <div class="job-details mono">09:00 AM • Plumbing Repair</div>
+                            <div class="job-details">123 Main St</div>
+                        </div>
+                        <div class="job-card">
+                            <div class="job-header">
+                                <div class="job-title">Sarah Johnson</div>
+                                <div class="job-status">Scheduled</div>
+                            </div>
+                            <div class="job-details mono">02:00 PM • HVAC Maintenance</div>
+                            <div class="job-details">456 Oak Ave</div>
+                        </div>
+                        <div class="job-card">
+                            <div class="job-header">
+                                <div class="job-title">Mike Davis</div>
+                                <div class="job-status">Scheduled</div>
+                            </div>
+                            <div class="job-details mono">04:30 PM • Electrical Install</div>
+                            <div class="job-details">789 Pine Rd</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Everything You Need</div>
+                <h2>Built for the Truck, Not the Desk</h2>
+                <p class="section-subtitle">Professional tools designed specifically for service professionals who work in the field.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">Job Scheduling</h3>
+                    <p class="feature-description">See your day at a glance. Create jobs in seconds, track status from scheduled to complete, and never miss an appointment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">Customer CRM</h3>
+                    <p class="feature-description">Keep all customer info in one place. Phone numbers, addresses, service history—accessible instantly when you need them.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">SMS Updates</h3>
+                    <p class="feature-description">Send professional text updates directly from the app. Use templates or write custom messages to keep customers informed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3 class="feature-title">Photo Docs</h3>
+                    <p class="feature-description">Take before and after photos right in the app. Show customers the problem and prove the work was done right.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Fast Invoicing</h3>
+                    <p class="feature-description">Create and send invoices in under 30 seconds. Accept credit cards, track payments, and get paid the same day.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Business Insights</h3>
+                    <p class="feature-description">Dashboard shows today's jobs, monthly revenue, and key metrics. Know exactly how your business is performing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label" style="color: var(--primary);">Simple Process</div>
+                <h2 style="color: white;">From Job to Payment in 4 Steps</h2>
+                <p class="section-subtitle">Getting started takes minutes, not days. No training required.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Create Account</h3>
+                    <p class="step-description">Sign up free. Add your business name and you're ready to go.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Add Customers</h3>
+                    <p class="step-description">Import contacts or add them manually. Keep all info organized.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Schedule Jobs</h3>
+                    <p class="step-description">Book appointments, send updates, upload photos as you work.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Get Paid</h3>
+                    <p class="step-description">Create invoice when done. Customer pays via credit card instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Affordable Plans</div>
+                <h2>Pricing That Grows With You</h2>
+                <p class="section-subtitle">Start free. Upgrade when you're ready. Cancel anytime.</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Starter</h3>
+                    <div class="plan-price">$0</div>
+                    <div class="plan-period">Forever free</div>
+                    <ul class="plan-features">
+                        <li>Up to 20 jobs/month</li>
+                        <li>5 customers</li>
+                        <li>Basic scheduling</li>
+                        <li>SMS messaging</li>
+                        <li>Mobile access</li>
+                    </ul>
+                    <a href="#" class="plan-btn">Start Free</a>
+                </div>
+                <div class="pricing-card featured">
+                    <h3 class="plan-name">Professional</h3>
+                    <div class="plan-price">$29</div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li>Unlimited jobs</li>
+                        <li>Unlimited customers</li>
+                        <li>Advanced scheduling</li>
+                        <li>SMS templates</li>
+                        <li>Photo documentation</li>
+                        <li>Invoice & payments</li>
+                        <li>Analytics dashboard</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#" class="plan-btn">Start Trial</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Team</h3>
+                    <div class="plan-price">$79</div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li>Everything in Pro</li>
+                        <li>Up to 5 team members</li>
+                        <li>Team scheduling</li>
+                        <li>Role permissions</li>
+                        <li>Advanced reports</li>
+                        <li>API access</li>
+                        <li>Custom branding</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                    <a href="#" class="plan-btn">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Simplify Your Business?</h2>
+                <p>Join hundreds of service professionals who've ditched spreadsheets and paper for ServicePro.</p>
+                <a href="#" class="btn-primary">Start Free - No Credit Card Required</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-icon">S</div>
+                        <span class="logo-text">ServicePro</span>
+                    </div>
+                    <p class="footer-description">The operations platform built for local service professionals. Run your entire business from your phone.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">Mobile App</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ServicePro. All rights reserved. Built for professionals who work with their hands.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
