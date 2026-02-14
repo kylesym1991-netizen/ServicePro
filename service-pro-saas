@@ -1,0 +1,25 @@
+cd service-pro-saas
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/YOUR-USERNAME/servicepro.git
+git push -u origin main
+```
+
+### **2. Deploy Backend - Railway (10 min)**
+1. Go to https://railway.app
+2. Login with GitHub
+3. "New Project" → "Deploy from GitHub repo"
+4. Settings → Root Directory: `backend`
+5. Variables → Add all your API keys (Supabase, Twilio, Stripe, etc.)
+6. Generate domain → Save the URL
+
+### **3. Deploy Frontend - Vercel (10 min)**
+1. Go to https://vercel.com
+2. Login with GitHub
+3. Import your repository
+4. Root Directory: `frontend`
+5. Environment Variables:
+```
+   NEXT_PUBLIC_API_URL=https://your-railway-url.railway.app
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
